@@ -58,9 +58,11 @@ public class TestMessenger {
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        appViews.scrollIntoView(new UiSelector().text("Messenger"));
+        // appViews.scrollIntoView(new UiSelector().text("Messenger")); // API 25
+        appViews.scrollIntoView(new UiSelector().text("Messages"));     // API 28
 
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Messenger"));
+        // UiObject testingApp = mDevice.findObject(new UiSelector().text("Messenger")); // API 25
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Messages"));     // API 28
         testingApp.clickAndWaitForNewWindow();
 
         UiObject button = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.messaging:id/start_new_conversation_button"));
@@ -86,9 +88,11 @@ public class TestMessenger {
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        appViews.scrollIntoView(new UiSelector().text("Messenger"));
+        // appViews.scrollIntoView(new UiSelector().text("Messenger")); // API 25
+        appViews.scrollIntoView(new UiSelector().text("Messages"));     // API 28
 
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Messenger"));
+        // UiObject testingApp = mDevice.findObject(new UiSelector().text("Messenger")); // API 25
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Messages"));     // API 28
         testingApp.clickAndWaitForNewWindow();
 
         UiObject button = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.messaging:id/start_new_conversation_button"));
@@ -117,9 +121,11 @@ public class TestMessenger {
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        appViews.scrollIntoView(new UiSelector().text("Messenger"));
+        // appViews.scrollIntoView(new UiSelector().text("Messenger")); // API 25
+        appViews.scrollIntoView(new UiSelector().text("Messages"));     // API 28
 
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Messenger"));
+        // UiObject testingApp = mDevice.findObject(new UiSelector().text("Messenger")); // API 25
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Messages"));     // API 28
         testingApp.clickAndWaitForNewWindow();
 
         UiObject button = mDevice.findObject(new UiSelector().text("Gonzalo Aguilar Hermoso"));
