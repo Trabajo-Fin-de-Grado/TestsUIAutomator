@@ -21,10 +21,10 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 @SdkSuppress(minSdkVersion = 18)
-public class TestMessenger {
+public class TestMessage {
 
     private static final int LAUNCH_TIMEOUT = 5000;
-    private static final String BASIC_SAMPLE_PACKAGE = "Messenger";
+    private static final String BASIC_SAMPLE_PACKAGE = "Messages";
     private UiDevice mDevice;
 
     @Before

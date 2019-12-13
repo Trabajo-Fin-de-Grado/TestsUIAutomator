@@ -101,16 +101,20 @@ public class TestContacts {
         UiObject phoneHome = mDevice.findObject(new UiSelector().text("Phone"));
         phoneHome.setText("924556677");
 
-        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(true));
+        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
         appViews.scrollIntoView(new UiSelector().text("Email"));
 
         UiObject email = mDevice.findObject(new UiSelector().text("Email"));
         email.setText("automator@gmail.com");
 
+        UiScrollable appViews2 = new UiScrollable(new UiSelector().scrollable(false));
+        appViews2.scrollIntoView(new UiSelector().text("More fields"));
+
         UiObject moreData = mDevice.findObject(new UiSelector().text("More fields"));
         moreData.click();
 
-        UiObject save = mDevice.findObject(new UiSelector().resourceId("com.android.contacts:id/menu_save"));
+        // UiObject save = mDevice.findObject(new UiSelector().resourceId("com.android.contacts:id/menu_save")); // API 25
+        UiObject save = mDevice.findObject(new UiSelector().resourceId("com.android.contacts:id/editor_menu_save_button")); // API 28
         save.click();
 
         mDevice.pressHome();
@@ -162,7 +166,7 @@ public class TestContacts {
         UiObject phoneHome = mDevice.findObject(new UiSelector().text("Phone"));
         phoneHome.setText("924223344");
 
-        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(true));
+        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
         appViews.scrollIntoView(new UiSelector().text("Email"));
 
         UiObject email = mDevice.findObject(new UiSelector().text("Email"));
@@ -171,7 +175,8 @@ public class TestContacts {
         UiObject moreData = mDevice.findObject(new UiSelector().text("More fields"));
         moreData.click();
 
-        UiObject save = mDevice.findObject(new UiSelector().resourceId("com.android.contacts:id/menu_save"));
+        // UiObject save = mDevice.findObject(new UiSelector().resourceId("com.android.contacts:id/menu_save")); // API 25
+        UiObject save = mDevice.findObject(new UiSelector().resourceId("com.android.contacts:id/editor_menu_save_button")); // API 28
         save.click();
 
         mDevice.pressHome();
@@ -229,7 +234,8 @@ public class TestContacts {
         UiObject notes = mDevice.findObject(new UiSelector().text("Notes"));
         notes.setText("UI Automator");
 
-        UiObject save = mDevice.findObject(new UiSelector().resourceId("com.android.contacts:id/menu_save"));
+        // UiObject save = mDevice.findObject(new UiSelector().resourceId("com.android.contacts:id/menu_save")); // API 25
+        UiObject save = mDevice.findObject(new UiSelector().resourceId("com.android.contacts:id/editor_menu_save_button")); // API 28
         save.click();
 
     }

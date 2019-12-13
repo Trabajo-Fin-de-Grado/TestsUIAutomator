@@ -122,55 +122,6 @@ public class TestingAndroidTest {
     }
 
     @Test
-    public void testSearchGoogleMaps() throws UiObjectNotFoundException {
-
-        UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
-
-        UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
-        allAppsButton.click();
-
-        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        appViews.scrollIntoView(new UiSelector().text("Maps"));
-
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Maps"));
-        testingApp.clickAndWaitForNewWindow();
-
-        UiObject search = mDevice.findObject(new UiSelector().text("Search here"));
-        search.clickAndWaitForNewWindow();
-        search.setText("Reina Mercedes");
-
-        UiObject location = mDevice.findObject(new UiSelector().text("Avenida de la Reina Mercedes"));
-        location.clickAndWaitForNewWindow();
-    }
-
-    @Test
-    public void testSearchGoogleChrome() throws UiObjectNotFoundException {
-
-        UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
-
-        UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
-        allAppsButton.click();
-
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Chrome"));
-        testingApp.clickAndWaitForNewWindow();
-
-        UiObject search = mDevice.findObject(new UiSelector().resourceId("com.android.chrome:id/search_box_text"));
-        search.click();
-
-        UiObject text = mDevice.findObject(new UiSelector().resourceId("com.android.chrome:id/url_bar"));
-        text.setText("UI Automator");
-
-        UiObject option = mDevice.findObject(new UiSelector().text("ui automator viewer"));
-        option.clickAndWaitForNewWindow();
-
-        // UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        // appViews.scrollIntoView(new UiSelector().text("Android › developer › testing › ui-a... UI Automator | Android Developers"));
-
-        UiObject video = mDevice.findObject(new UiSelector().textStartsWith("Android › developer › testing › ui"));
-        video.click();
-    }
-
-    @Test
     public void testQuiz() throws UiObjectNotFoundException {
         UiDevice mDevice;
         mDevice = UiDevice.getInstance(getInstrumentation());

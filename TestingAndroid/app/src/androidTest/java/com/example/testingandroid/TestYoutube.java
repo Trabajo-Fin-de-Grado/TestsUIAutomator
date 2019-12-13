@@ -21,10 +21,10 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 @SdkSuppress(minSdkVersion = 18)
-public class TestPlayStore {
+public class TestYoutube {
 
     private static final int LAUNCH_TIMEOUT = 5000;
-    private static final String BASIC_SAMPLE_PACKAGE = "Play Store";
+    private static final String BASIC_SAMPLE_PACKAGE = "YouTube";
     private UiDevice mDevice;
 
     @Before
@@ -50,7 +50,7 @@ public class TestPlayStore {
     }
 
     @Test
-    public void testUpdateApplication() throws UiObjectNotFoundException {
+    public void testSearchVideo() throws UiObjectNotFoundException {
 
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
 
@@ -58,27 +58,27 @@ public class TestPlayStore {
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        appViews.scrollIntoView(new UiSelector().text("Play Store"));
+        appViews.scrollIntoView(new UiSelector().text("YouTube"));
 
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Play Store"));
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("YouTube"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/main_nav_item"));
+        UiObject button = mDevice.findObject(new UiSelector().description("Search"));
         button.click();
 
-        UiObject option = mDevice.findObject(new UiSelector().text("My apps & games"));
+        UiObject text = mDevice.findObject(new UiSelector().resourceId("com.google.android.youtube:id/search_edit_text"));
+        text.setText("UI Automator");
+
+        UiObject option = mDevice.findObject(new UiSelector().resourceId("com.google.android.youtube:id/text").index(1));
         option.click();
 
-        UiObject application = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/content_container"));
-        application.click();
-
-        UiObject update = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/left_button"));
-        update.clickAndWaitForNewWindow();
+        UiObject select = mDevice.findObject(new UiSelector().className("android.view.ViewGroup").index(3));
+        select.click();
 
     }
 
     @Test
-    public void testInstallApplication() throws UiObjectNotFoundException {
+    public void testPlayVideo() throws UiObjectNotFoundException {
 
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
 
@@ -86,30 +86,21 @@ public class TestPlayStore {
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        appViews.scrollIntoView(new UiSelector().text("Play Store"));
+        appViews.scrollIntoView(new UiSelector().text("YouTube"));
 
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Play Store"));
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("YouTube"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/main_nav_item"));
+        UiObject button = mDevice.findObject(new UiSelector().className("android.widget.Button").index(1));
         button.click();
 
-        UiObject option = mDevice.findObject(new UiSelector().text("My apps & games"));
+        UiObject option = mDevice.findObject(new UiSelector().className("android.view.ViewGroup").index(0));
         option.click();
-
-        UiObject select = mDevice.findObject(new UiSelector().className("android.widget.TextView").index(2));
-        select.click();
-
-        UiObject application = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/content_container"));
-        application.click();
-
-        UiObject update = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/right_button"));
-        update.clickAndWaitForNewWindow();
 
     }
 
     @Test
-    public void testUninstallApplication() throws UiObjectNotFoundException {
+    public void testStopVideo() throws UiObjectNotFoundException {
 
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
 
@@ -117,34 +108,135 @@ public class TestPlayStore {
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        appViews.scrollIntoView(new UiSelector().text("Play Store"));
+        appViews.scrollIntoView(new UiSelector().text("YouTube"));
 
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Play Store"));
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("YouTube"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/main_nav_item"));
+        UiObject button = mDevice.findObject(new UiSelector().className("android.widget.Button").index(1));
         button.click();
 
-        UiObject option = mDevice.findObject(new UiSelector().text("My apps & games"));
+        UiObject play = mDevice.findObject(new UiSelector().className("android.view.ViewGroup").index(0));
+        play.click();
+
+        play.waitUntilGone(20000);
+
+        UiObject option = mDevice.findObject(new UiSelector().resourceId("com.google.android.youtube:id/player_view"));
         option.click();
 
-        UiObject select = mDevice.findObject(new UiSelector().className("android.widget.TextView").index(1));
+        UiObject stop = mDevice.findObject(new UiSelector().resourceId("com.google.android.youtube:id/player_control_play_pause_replay_button"));
+        stop.click();
+
+    }
+
+    @Test
+    public void testChangeQuality() throws UiObjectNotFoundException {
+
+        UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
+
+        UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
+        allAppsButton.click();
+
+        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
+        appViews.scrollIntoView(new UiSelector().text("YouTube"));
+
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("YouTube"));
+        testingApp.clickAndWaitForNewWindow();
+
+        UiObject button = mDevice.findObject(new UiSelector().className("android.widget.Button").index(1));
+        button.click();
+
+        UiObject play = mDevice.findObject(new UiSelector().className("android.view.ViewGroup").index(0));
+        play.click();
+
+        play.waitUntilGone(20000);
+
+        UiObject option = mDevice.findObject(new UiSelector().resourceId("com.google.android.youtube:id/player_view"));
+        option.click();
+
+        UiObject select = mDevice.findObject(new UiSelector().resourceId("com.google.android.youtube:id/player_overflow_button"));
         select.click();
 
-        UiObject application = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/sort_button"));
-        application.click();
+        UiObject quality = mDevice.findObject(new UiSelector().className("android.widget.RelativeLayout").index(2));
+        quality.click();
 
-        UiObject checked = mDevice.findObject(new UiSelector().className("android.widget.CheckedTextView").index(1));
-        checked.click();
+        UiObject level = mDevice.findObject(new UiSelector().className("android.widget.RelativeLayout").index(7));
+        level.click();
 
-        UiObject app = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/content_container"));
-        app.click();
+    }
 
-        UiObject update = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/left_button"));
-        update.clickAndWaitForNewWindow();
+    @Test
+    public void testChangeVelocity() throws UiObjectNotFoundException {
 
-        UiObject press = mDevice.findObject(new UiSelector().resourceId("android:id/button1"));
-        press.clickAndWaitForNewWindow();
+        UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
+
+        UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
+        allAppsButton.click();
+
+        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
+        appViews.scrollIntoView(new UiSelector().text("YouTube"));
+
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("YouTube"));
+        testingApp.clickAndWaitForNewWindow();
+
+        UiObject button = mDevice.findObject(new UiSelector().className("android.widget.Button").index(1));
+        button.click();
+
+        UiObject play = mDevice.findObject(new UiSelector().className("android.view.ViewGroup").index(0));
+        play.click();
+
+        play.waitUntilGone(20000);
+
+        UiObject option = mDevice.findObject(new UiSelector().resourceId("com.google.android.youtube:id/player_view"));
+        option.click();
+
+        UiObject select = mDevice.findObject(new UiSelector().resourceId("com.google.android.youtube:id/player_overflow_button"));
+        select.click();
+
+        UiObject velocity = mDevice.findObject(new UiSelector().className("android.widget.RelativeLayout").index(4));
+        velocity.click();
+
+        UiObject level = mDevice.findObject(new UiSelector().className("android.widget.RelativeLayout").index(8));
+        level.click();
+
+    }
+
+    @Test
+    public void testShareVideo() throws UiObjectNotFoundException {
+
+        UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
+
+        UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
+        allAppsButton.click();
+
+        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
+        appViews.scrollIntoView(new UiSelector().text("YouTube"));
+
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("YouTube"));
+        testingApp.clickAndWaitForNewWindow();
+
+        UiObject button = mDevice.findObject(new UiSelector().className("android.widget.Button").index(1));
+        button.click();
+
+        UiObject play = mDevice.findObject(new UiSelector().className("android.view.ViewGroup").index(0));
+        play.click();
+
+        play.waitUntilGone(30000);
+
+        UiObject option = mDevice.findObject(new UiSelector().resourceId("com.google.android.youtube:id/player_view"));
+        option.click();
+
+        UiObject share = mDevice.findObject(new UiSelector().resourceId("com.google.android.youtube:id/player_share_button"));
+        share.click();
+
+        UiObject messages = mDevice.findObject(new UiSelector().text("Messages"));
+        messages.click();
+
+        UiObject contact = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.messaging:id/details_container").index(1));
+        contact.click();
+
+        UiObject enviar = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.messaging:id/send_message_button_icon"));
+        enviar.click();
 
     }
 

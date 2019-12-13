@@ -75,7 +75,8 @@ public class TestClock {
         UiObject testingApp = mDevice.findObject(new UiSelector().text("Clock"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject button = mDevice.findObject(new UiSelector().description("Alarm"));
+        //UiObject button = mDevice.findObject(new UiSelector().description("Alarm")); // API 25
+        UiObject button = mDevice.findObject(new UiSelector().text("ALARM"));        // API 28
         button.clickAndWaitForNewWindow();
 
         UiObject expansion = mDevice.findObject(new UiSelector().resourceId("com.google.android.deskclock:id/arrow"));
@@ -89,6 +90,8 @@ public class TestClock {
 
         UiObject tone = mDevice.findObject(new UiSelector().text("Krypton"));
         tone.clickAndWaitForNewWindow();
+
+        // API 28: no tiene botón de confirmación
 
         UiObject select = mDevice.findObject(new UiSelector().resourceId("android:id/button1"));
         select.clickAndWaitForNewWindow();
@@ -116,7 +119,8 @@ public class TestClock {
         UiObject testingApp = mDevice.findObject(new UiSelector().text("Clock"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject button = mDevice.findObject(new UiSelector().description("Alarm"));
+        //UiObject button = mDevice.findObject(new UiSelector().description("Alarm")); // API 25
+        UiObject button = mDevice.findObject(new UiSelector().text("ALARM"));        // API 28
         button.clickAndWaitForNewWindow();
 
         UiObject expansion = mDevice.findObject(new UiSelector().resourceId("com.google.android.deskclock:id/arrow"));
@@ -161,7 +165,8 @@ public class TestClock {
         UiObject testingApp = mDevice.findObject(new UiSelector().text("Clock"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject button = mDevice.findObject(new UiSelector().description("Timer"));
+        //UiObject button = mDevice.findObject(new UiSelector().description("Timer")); // API 25
+        UiObject button = mDevice.findObject(new UiSelector().text("TIMER"));          // API 28
         button.clickAndWaitForNewWindow();
 
         UiObject number0 = mDevice.findObject(new UiSelector().text("0"));
@@ -205,7 +210,8 @@ public class TestClock {
         UiObject testingApp = mDevice.findObject(new UiSelector().text("Clock"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject button = mDevice.findObject(new UiSelector().description("Stopwatch"));
+        //UiObject button = mDevice.findObject(new UiSelector().description("Stopwatch")); // API 25
+        UiObject button = mDevice.findObject(new UiSelector().text("STOPWATCH"));          // API 28
         button.clickAndWaitForNewWindow();
 
         UiObject play = mDevice.findObject(new UiSelector().resourceId("com.google.android.deskclock:id/fab"));

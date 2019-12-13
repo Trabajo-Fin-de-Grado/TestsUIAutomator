@@ -21,10 +21,10 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 @SdkSuppress(minSdkVersion = 18)
-public class TestMessage {
+public class TestPhone {
 
     private static final int LAUNCH_TIMEOUT = 5000;
-    private static final String BASIC_SAMPLE_PACKAGE = "Messenger";
+    private static final String BASIC_SAMPLE_PACKAGE = "Phone";
     private UiDevice mDevice;
 
     @Before
@@ -49,8 +49,19 @@ public class TestMessage {
         assertThat(mDevice, notNullValue());
     }
 
+    // UiObject numero0 = mDevice.findObject(new UiSelector().text("0"));
+    // UiObject numero1 = mDevice.findObject(new UiSelector().text("1"));
+    // UiObject numero2 = mDevice.findObject(new UiSelector().text("2"));
+    // UiObject numero3 = mDevice.findObject(new UiSelector().text("3"));
+    // UiObject numero4 = mDevice.findObject(new UiSelector().text("4"));
+    // UiObject numero5 = mDevice.findObject(new UiSelector().text("5"));
+    // UiObject numero6 = mDevice.findObject(new UiSelector().text("6"));
+    // UiObject numero7 = mDevice.findObject(new UiSelector().text("7"));
+    // UiObject numero8 = mDevice.findObject(new UiSelector().text("8"));
+    // UiObject numero9 = mDevice.findObject(new UiSelector().text("9"));
+
     @Test
-    public void testSendMessage() throws UiObjectNotFoundException {
+    public void testCallPhone() throws UiObjectNotFoundException {
 
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
 
@@ -58,87 +69,42 @@ public class TestMessage {
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        // appViews.scrollIntoView(new UiSelector().text("Messenger")); // API 25
-        appViews.scrollIntoView(new UiSelector().text("Messages"));     // API 28
+        appViews.scrollIntoView(new UiSelector().text("Phone"));
 
-        // UiObject testingApp = mDevice.findObject(new UiSelector().text("Messenger")); // API 25
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Messages"));     // API 28
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Phone"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.messaging:id/start_new_conversation_button"));
+        UiObject button = mDevice.findObject(new UiSelector().description("key pad"));
         button.click();
 
-        UiObject number = mDevice.findObject(new UiSelector().text("654123987"));
-        number.click();
 
-        UiObject message = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.messaging:id/compose_message_text"));
-        message.setText("UI Automator");
+        UiObject numero2 = mDevice.findObject(new UiSelector().text("2"));
+        UiObject numero3 = mDevice.findObject(new UiSelector().text("3"));
+        UiObject numero5 = mDevice.findObject(new UiSelector().text("5"));
+        UiObject numero6 = mDevice.findObject(new UiSelector().text("6"));
+        UiObject numero9 = mDevice.findObject(new UiSelector().text("9"));
 
-        UiObject enviar = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.messaging:id/self_send_icon"));
-        enviar.clickAndWaitForNewWindow();
+        numero6.click();
+        numero9.click();
+        numero2.click();
 
-    }
+        numero5.click();
+        numero2.click();
 
-    @Test
-    public void testSendIcon() throws UiObjectNotFoundException {
+        numero5.click();
+        numero3.click();
 
-        UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
+        numero5.click();
+        numero5.click();
 
-        UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
-        allAppsButton.click();
+        UiObject call = mDevice.findObject(new UiSelector().description("dial"));
+        call.clickAndWaitForNewWindow();
 
-        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        // appViews.scrollIntoView(new UiSelector().text("Messenger")); // API 25
-        appViews.scrollIntoView(new UiSelector().text("Messages"));     // API 28
+        call.waitUntilGone(2000);
 
-        // UiObject testingApp = mDevice.findObject(new UiSelector().text("Messenger")); // API 25
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Messages"));     // API 28
-        testingApp.clickAndWaitForNewWindow();
+        UiObject end = mDevice.findObject(new UiSelector().description("End call"));
+        end.clickAndWaitForNewWindow();
 
-        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.messaging:id/start_new_conversation_button"));
-        button.click();
-
-        UiObject number = mDevice.findObject(new UiSelector().text("654123987"));
-        number.click();
-
-        UiObject icon = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.messaging:id/emoji_keyboard_button"));
-        icon.click();
-
-        UiObject emoji = mDevice.findObject(new UiSelector().className("android.widget.ImageView").index(12));
-        emoji.click();
-
-        UiObject enviar = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.messaging:id/self_send_icon"));
-        enviar.clickAndWaitForNewWindow();
-
-    }
-
-    @Test
-    public void testDeleteMessage() throws UiObjectNotFoundException {
-
-        UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
-
-        UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
-        allAppsButton.click();
-
-        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        // appViews.scrollIntoView(new UiSelector().text("Messenger")); // API 25
-        appViews.scrollIntoView(new UiSelector().text("Messages"));     // API 28
-
-        // UiObject testingApp = mDevice.findObject(new UiSelector().text("Messenger")); // API 25
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Messages"));     // API 28
-        testingApp.clickAndWaitForNewWindow();
-
-        UiObject button = mDevice.findObject(new UiSelector().text("Gonzalo Aguilar Hermoso"));
-        button.click();
-
-        UiObject options = mDevice.findObject(new UiSelector().description("More options"));
-        options.click();
-
-        UiObject delete = mDevice.findObject(new UiSelector().text("Delete"));
-        delete.click();
-
-        UiObject send = mDevice.findObject(new UiSelector().resourceId("android:id/button1"));
-        send.clickAndWaitForNewWindow();
     }
 
 }

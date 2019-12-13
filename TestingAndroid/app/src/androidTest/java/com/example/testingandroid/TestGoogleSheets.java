@@ -21,10 +21,10 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 @SdkSuppress(minSdkVersion = 18)
-public class TestGoogleDocs {
+public class TestGoogleSheets {
 
     private static final int LAUNCH_TIMEOUT = 5000;
-    private static final String BASIC_SAMPLE_PACKAGE = "Drive";
+    private static final String BASIC_SAMPLE_PACKAGE = "Sheets";
     private UiDevice mDevice;
 
     @Before
@@ -50,7 +50,7 @@ public class TestGoogleDocs {
     }
 
     @Test
-    public void testCreateGoogleDoc() throws UiObjectNotFoundException {
+    public void testCreateGoogleSheet() throws UiObjectNotFoundException {
 
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
 
@@ -58,19 +58,16 @@ public class TestGoogleDocs {
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        appViews.scrollIntoView(new UiSelector().text("Docs"));
+        appViews.scrollIntoView(new UiSelector().text("Sheets"));
 
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Docs"));
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Sheets"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs.editors.docs:id/fab_base_button"));
+        UiObject button = mDevice.findObject(new UiSelector().description("New spreadsheet menu"));
         button.click();
 
-        UiObject document = mDevice.findObject(new UiSelector().description("New document"));
+        UiObject document = mDevice.findObject(new UiSelector().description("New spreadsheet"));
         document.clickAndWaitForNewWindow();
-
-        UiObject check = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs.editors.docs:id/action_mode_close_button"));
-        check.click();
 
         UiObject close = mDevice.findObject(new UiSelector().description("Navigate up"));
         close.click();
@@ -78,7 +75,7 @@ public class TestGoogleDocs {
     }
 
     @Test
-    public void testRenameGoogleDoc() throws UiObjectNotFoundException {
+    public void testRenameGoogleSheet() throws UiObjectNotFoundException {
 
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
 
@@ -86,12 +83,12 @@ public class TestGoogleDocs {
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        appViews.scrollIntoView(new UiSelector().text("Docs"));
+        appViews.scrollIntoView(new UiSelector().text("Sheets"));
 
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Docs"));
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Sheets"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject document = mDevice.findObject(new UiSelector().description("More actions for Untitled document"));
+        UiObject document = mDevice.findObject(new UiSelector().description("More actions for Untitled spreadsheet"));
         document.click();
 
         UiScrollable options = new UiScrollable(new UiSelector().scrollable(false));
@@ -100,16 +97,16 @@ public class TestGoogleDocs {
         UiObject rename = mDevice.findObject(new UiSelector().text("Rename"));
         rename.clickAndWaitForNewWindow();
 
-        UiObject name = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs.editors.docs:id/edit_text"));
+        UiObject name = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs.editors.sheets:id/edit_text"));
         name.setText("UI Automator");
 
-        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs.editors.docs:id/positive_button"));
+        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs.editors.sheets:id/positive_button"));
         button.clickAndWaitForNewWindow();
 
     }
 
     @Test
-    public void testRemoveGoogleDoc() throws UiObjectNotFoundException {
+    public void testRemoveGoogleSheet() throws UiObjectNotFoundException {
 
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
 
@@ -117,12 +114,12 @@ public class TestGoogleDocs {
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        appViews.scrollIntoView(new UiSelector().text("Docs"));
+        appViews.scrollIntoView(new UiSelector().text("Sheets"));
 
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Docs"));
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Sheets"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject document = mDevice.findObject(new UiSelector().description("More actions for Untitled document"));
+        UiObject document = mDevice.findObject(new UiSelector().description("More actions for Untitled spreadsheet"));
         document.click();
 
         UiScrollable options = new UiScrollable(new UiSelector().scrollable(false));

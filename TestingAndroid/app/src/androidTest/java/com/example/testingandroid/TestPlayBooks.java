@@ -21,10 +21,10 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 @SdkSuppress(minSdkVersion = 18)
-public class TestPlayStore {
+public class TestPlayBooks {
 
     private static final int LAUNCH_TIMEOUT = 5000;
-    private static final String BASIC_SAMPLE_PACKAGE = "Play Store";
+    private static final String BASIC_SAMPLE_PACKAGE = "Play Books";
     private UiDevice mDevice;
 
     @Before
@@ -50,7 +50,7 @@ public class TestPlayStore {
     }
 
     @Test
-    public void testUpdateApplication() throws UiObjectNotFoundException {
+    public void testSearchGender() throws UiObjectNotFoundException {
 
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
 
@@ -58,27 +58,27 @@ public class TestPlayStore {
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        appViews.scrollIntoView(new UiSelector().text("Play Store"));
+        appViews.scrollIntoView(new UiSelector().text("Play Books"));
 
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Play Store"));
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Play Books"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/main_nav_item"));
-        button.click();
+        UiObject genres = mDevice.findObject(new UiSelector().text("Genres"));
+        genres.click();
 
-        UiObject option = mDevice.findObject(new UiSelector().text("My apps & games"));
-        option.click();
+        UiObject science = mDevice.findObject(new UiSelector().text("Science & technology"));
+        science.click();
 
-        UiObject application = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/content_container"));
-        application.click();
+        UiObject select = mDevice.findObject(new UiSelector().className("android.widget.RelativeLayout").index(2));
+        select.click();
 
-        UiObject update = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/left_button"));
-        update.clickAndWaitForNewWindow();
+        UiObject book = mDevice.findObject(new UiSelector().text("Preview"));
+        book.click();
 
     }
 
     @Test
-    public void testInstallApplication() throws UiObjectNotFoundException {
+    public void testDeleteBook() throws UiObjectNotFoundException {
 
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
 
@@ -86,65 +86,19 @@ public class TestPlayStore {
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        appViews.scrollIntoView(new UiSelector().text("Play Store"));
+        appViews.scrollIntoView(new UiSelector().text("Play Books"));
 
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Play Store"));
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Play Books"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/main_nav_item"));
-        button.click();
+        UiObject options = mDevice.findObject(new UiSelector().description("Options for Homo Deus"));
+        options.click();
 
-        UiObject option = mDevice.findObject(new UiSelector().text("My apps & games"));
-        option.click();
+        UiObject remove = mDevice.findObject(new UiSelector().text("Remove download"));
+        remove.click();
 
-        UiObject select = mDevice.findObject(new UiSelector().className("android.widget.TextView").index(2));
-        select.click();
-
-        UiObject application = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/content_container"));
-        application.click();
-
-        UiObject update = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/right_button"));
-        update.clickAndWaitForNewWindow();
-
-    }
-
-    @Test
-    public void testUninstallApplication() throws UiObjectNotFoundException {
-
-        UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
-
-        UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
-        allAppsButton.click();
-
-        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        appViews.scrollIntoView(new UiSelector().text("Play Store"));
-
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Play Store"));
-        testingApp.clickAndWaitForNewWindow();
-
-        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/main_nav_item"));
-        button.click();
-
-        UiObject option = mDevice.findObject(new UiSelector().text("My apps & games"));
-        option.click();
-
-        UiObject select = mDevice.findObject(new UiSelector().className("android.widget.TextView").index(1));
-        select.click();
-
-        UiObject application = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/sort_button"));
-        application.click();
-
-        UiObject checked = mDevice.findObject(new UiSelector().className("android.widget.CheckedTextView").index(1));
-        checked.click();
-
-        UiObject app = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/content_container"));
-        app.click();
-
-        UiObject update = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/left_button"));
-        update.clickAndWaitForNewWindow();
-
-        UiObject press = mDevice.findObject(new UiSelector().resourceId("android:id/button1"));
-        press.clickAndWaitForNewWindow();
+        UiObject confirm = mDevice.findObject(new UiSelector().text("Remove"));
+        confirm.click();
 
     }
 

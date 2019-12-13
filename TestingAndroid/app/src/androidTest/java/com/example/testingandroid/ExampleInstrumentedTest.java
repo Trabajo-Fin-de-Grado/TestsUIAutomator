@@ -49,8 +49,7 @@ public class ExampleInstrumentedTest {
         mDevice = UiDevice.getInstance(getInstrumentation());
         UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
         allAppsButton.click();
-        UiScrollable appViews = new UiScrollable(
-                new UiSelector().scrollable(true));
+        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(true));
         appViews.scrollIntoView(new UiSelector().text("TestingAndroid"));
         UiObject testingApp = mDevice.findObject(new UiSelector().text("TestingAndroid"));
         testingApp.clickAndWaitForNewWindow();

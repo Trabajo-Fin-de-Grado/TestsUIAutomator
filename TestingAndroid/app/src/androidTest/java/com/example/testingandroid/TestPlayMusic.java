@@ -21,10 +21,10 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 @SdkSuppress(minSdkVersion = 18)
-public class TestPlayStore {
+public class TestPlayMusic {
 
     private static final int LAUNCH_TIMEOUT = 5000;
-    private static final String BASIC_SAMPLE_PACKAGE = "Play Store";
+    private static final String BASIC_SAMPLE_PACKAGE = "Play Music";
     private UiDevice mDevice;
 
     @Before
@@ -50,101 +50,148 @@ public class TestPlayStore {
     }
 
     @Test
-    public void testUpdateApplication() throws UiObjectNotFoundException {
+    public void playMusic() throws UiObjectNotFoundException {
 
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
 
-        UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
+        // UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
+        UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Aplicaciones"));
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        appViews.scrollIntoView(new UiSelector().text("Play Store"));
+        appViews.scrollIntoView(new UiSelector().text("Play Música"));
 
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Play Store"));
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Play Música"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/main_nav_item"));
-        button.click();
+        UiObject music = mDevice.findObject(new UiSelector().text("Music"));
+        music.click();
 
-        UiObject option = mDevice.findObject(new UiSelector().text("My apps & games"));
-        option.click();
+        UiScrollable list = new UiScrollable(new UiSelector().scrollable(false));
+        list.scrollIntoView(new UiSelector().text("Twenty One Pilots Forest"));
 
-        UiObject application = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/content_container"));
-        application.click();
-
-        UiObject update = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/left_button"));
-        update.clickAndWaitForNewWindow();
+        UiObject song = mDevice.findObject(new UiSelector().text("Twenty One Pilots Forest"));
+        song.click();
 
     }
 
     @Test
-    public void testInstallApplication() throws UiObjectNotFoundException {
+    public void stopMusic() throws UiObjectNotFoundException {
 
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
 
-        UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
+        // UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
+        UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Aplicaciones"));
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        appViews.scrollIntoView(new UiSelector().text("Play Store"));
+        appViews.scrollIntoView(new UiSelector().text("Play Música"));
 
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Play Store"));
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Play Música"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/main_nav_item"));
-        button.click();
+        UiObject music = mDevice.findObject(new UiSelector().text("Music"));
+        music.click();
 
-        UiObject option = mDevice.findObject(new UiSelector().text("My apps & games"));
-        option.click();
+        UiScrollable list = new UiScrollable(new UiSelector().scrollable(false));
+        list.scrollIntoView(new UiSelector().text("Twenty One Pilots Forest"));
 
-        UiObject select = mDevice.findObject(new UiSelector().className("android.widget.TextView").index(2));
-        select.click();
+        UiObject song = mDevice.findObject(new UiSelector().text("Twenty One Pilots Forest"));
+        song.click();
 
-        UiObject application = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/content_container"));
-        application.click();
+        UiObject artist = mDevice.findObject(new UiSelector().text("Artista desconocido"));
+        artist.click();
 
-        UiObject update = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/right_button"));
-        update.clickAndWaitForNewWindow();
+        song.waitUntilGone(4000);
+
+        UiObject stop = mDevice.findObject(new UiSelector().description("Pausar"));
+        stop.click();
+
+        stop.waitUntilGone(1000);
+
+        UiObject play = mDevice.findObject(new UiSelector().description("Reproducir"));
+        play.click();
+
+        stop.waitUntilGone(1000);
+
+        stop.click();
+    }
+
+    @Test
+    public void previousSong() throws UiObjectNotFoundException {
+
+        UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
+
+        // UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
+        UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Aplicaciones"));
+        allAppsButton.click();
+
+        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
+        appViews.scrollIntoView(new UiSelector().text("Play Música"));
+
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Play Música"));
+        testingApp.clickAndWaitForNewWindow();
+
+        UiObject music = mDevice.findObject(new UiSelector().text("Music"));
+        music.click();
+
+        UiScrollable list = new UiScrollable(new UiSelector().scrollable(false));
+        list.scrollIntoView(new UiSelector().text("Twenty One Pilots Forest"));
+
+        UiObject song = mDevice.findObject(new UiSelector().text("Twenty One Pilots Forest"));
+        song.click();
+
+        UiObject artist = mDevice.findObject(new UiSelector().text("Artista desconocido"));
+        artist.click();
+
+        song.waitUntilGone(5000);
+
+        UiObject previous = mDevice.findObject(new UiSelector().description("Anterior"));
+        previous.click();
+
+        previous.waitUntilGone(5000);
+
+        UiObject stop = mDevice.findObject(new UiSelector().description("Pausar"));
+        stop.click();
 
     }
 
     @Test
-    public void testUninstallApplication() throws UiObjectNotFoundException {
+    public void nextSong() throws UiObjectNotFoundException {
 
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
 
-        UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
+        // UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
+        UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Aplicaciones"));
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        appViews.scrollIntoView(new UiSelector().text("Play Store"));
+        appViews.scrollIntoView(new UiSelector().text("Play Música"));
 
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Play Store"));
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Play Música"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/main_nav_item"));
-        button.click();
+        UiObject music = mDevice.findObject(new UiSelector().text("Music"));
+        music.click();
 
-        UiObject option = mDevice.findObject(new UiSelector().text("My apps & games"));
-        option.click();
+        UiScrollable list = new UiScrollable(new UiSelector().scrollable(false));
+        list.scrollIntoView(new UiSelector().text("Twenty One Pilots Forest"));
 
-        UiObject select = mDevice.findObject(new UiSelector().className("android.widget.TextView").index(1));
-        select.click();
+        UiObject song = mDevice.findObject(new UiSelector().text("Twenty One Pilots Forest"));
+        song.click();
 
-        UiObject application = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/sort_button"));
-        application.click();
+        UiObject artist = mDevice.findObject(new UiSelector().text("Artista desconocido"));
+        artist.click();
 
-        UiObject checked = mDevice.findObject(new UiSelector().className("android.widget.CheckedTextView").index(1));
-        checked.click();
+        song.waitUntilGone(5000);
 
-        UiObject app = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/content_container"));
-        app.click();
+        UiObject next = mDevice.findObject(new UiSelector().description("Siguiente"));
+        next.click();
 
-        UiObject update = mDevice.findObject(new UiSelector().resourceId("com.android.vending:id/left_button"));
-        update.clickAndWaitForNewWindow();
+        next.waitUntilGone(5000);
 
-        UiObject press = mDevice.findObject(new UiSelector().resourceId("android:id/button1"));
-        press.clickAndWaitForNewWindow();
+        UiObject stop = mDevice.findObject(new UiSelector().description("Pausar"));
+        stop.click();
 
     }
 

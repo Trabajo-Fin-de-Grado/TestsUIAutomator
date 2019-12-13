@@ -21,10 +21,10 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 @SdkSuppress(minSdkVersion = 18)
-public class TestMessenger {
+public class TestGoogleDrive {
 
     private static final int LAUNCH_TIMEOUT = 5000;
-    private static final String BASIC_SAMPLE_PACKAGE = "Messenger";
+    private static final String BASIC_SAMPLE_PACKAGE = "Drive";
     private UiDevice mDevice;
 
     @Before
@@ -50,7 +50,7 @@ public class TestMessenger {
     }
 
     @Test
-    public void testSendMessage() throws UiObjectNotFoundException {
+    public void testCreateFolder() throws UiObjectNotFoundException {
 
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
 
@@ -58,29 +58,87 @@ public class TestMessenger {
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        // appViews.scrollIntoView(new UiSelector().text("Messenger")); // API 25
-        appViews.scrollIntoView(new UiSelector().text("Messages"));     // API 28
+        appViews.scrollIntoView(new UiSelector().text("Drive"));
 
-        // UiObject testingApp = mDevice.findObject(new UiSelector().text("Messenger")); // API 25
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Messages"));     // API 28
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Drive"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.messaging:id/start_new_conversation_button"));
+        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs:id/branded_fab"));
         button.click();
 
-        UiObject number = mDevice.findObject(new UiSelector().text("654123987"));
-        number.click();
+        UiObject folder = mDevice.findObject(new UiSelector().description("Folder"));
+        folder.click();
 
-        UiObject message = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.messaging:id/compose_message_text"));
-        message.setText("UI Automator");
+        UiObject text = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs:id/edit_text"));
+        text.setText("Trabajo Fin de Grado");
 
-        UiObject enviar = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.messaging:id/self_send_icon"));
-        enviar.clickAndWaitForNewWindow();
+        UiObject create = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs:id/positive_button"));
+        create.click();
+    }
+
+    @Test
+    public void testDeleteFolder() throws UiObjectNotFoundException {
+
+        UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
+
+        UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
+        allAppsButton.click();
+
+        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
+        appViews.scrollIntoView(new UiSelector().text("Drive"));
+
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Drive"));
+        testingApp.clickAndWaitForNewWindow();
+
+        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs:id/branded_fab"));
+        button.click();
+
+        UiObject folder = mDevice.findObject(new UiSelector().description("Folder"));
+        folder.click();
+
+        UiObject text = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs:id/edit_text"));
+        text.setText("Trabajo Fin de Grado");
+
+        UiObject create = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs:id/positive_button"));
+        create.click();
+    }
+
+    @Test
+    public void testCreateGoogleDoc() throws UiObjectNotFoundException {
+
+        UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
+
+        UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
+        allAppsButton.click();
+
+        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
+        appViews.scrollIntoView(new UiSelector().text("Drive"));
+
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Drive"));
+        testingApp.clickAndWaitForNewWindow();
+
+        UiScrollable app = new UiScrollable(new UiSelector().scrollable(true));
+        app.scrollIntoView(new UiSelector().text("Trabajo Fin de Grado"));
+
+        UiObject testing = mDevice.findObject(new UiSelector().text("Trabajo Fin de Grado"));
+        testing.clickAndWaitForNewWindow();
+
+        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs:id/branded_fab"));
+        button.click();
+
+        UiObject document = mDevice.findObject(new UiSelector().description("Google Docs"));
+        document.clickAndWaitForNewWindow();
+
+        UiObject save = mDevice.findObject(new UiSelector().description("Done"));
+        save.click();
+
+        UiObject close = mDevice.findObject(new UiSelector().description("Navigate up"));
+        close.click();
 
     }
 
     @Test
-    public void testSendIcon() throws UiObjectNotFoundException {
+    public void testEditGoogleDoc() throws UiObjectNotFoundException {
 
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
 
@@ -88,32 +146,36 @@ public class TestMessenger {
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        // appViews.scrollIntoView(new UiSelector().text("Messenger")); // API 25
-        appViews.scrollIntoView(new UiSelector().text("Messages"));     // API 28
+        appViews.scrollIntoView(new UiSelector().text("Drive"));
 
-        // UiObject testingApp = mDevice.findObject(new UiSelector().text("Messenger")); // API 25
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Messages"));     // API 28
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Drive"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.messaging:id/start_new_conversation_button"));
-        button.click();
+        UiScrollable app = new UiScrollable(new UiSelector().scrollable(true));
+        app.scrollIntoView(new UiSelector().text("Trabajo Fin de Grado"));
 
-        UiObject number = mDevice.findObject(new UiSelector().text("654123987"));
-        number.click();
+        UiObject testing = mDevice.findObject(new UiSelector().text("Trabajo Fin de Grado"));
+        testing.clickAndWaitForNewWindow();
 
-        UiObject icon = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.messaging:id/emoji_keyboard_button"));
-        icon.click();
+        UiObject option = mDevice.findObject(new UiSelector().description("More actions for Untitled document"));
+        option.click();
 
-        UiObject emoji = mDevice.findObject(new UiSelector().className("android.widget.ImageView").index(12));
-        emoji.click();
+        UiScrollable scroll = new UiScrollable(new UiSelector().scrollable(true));
+        scroll.scrollIntoView(new UiSelector().text("Rename"));
 
-        UiObject enviar = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.messaging:id/self_send_icon"));
-        enviar.clickAndWaitForNewWindow();
+        UiObject document = mDevice.findObject(new UiSelector().text("Rename"));
+        document.clickAndWaitForNewWindow();
+
+        UiObject text = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs:id/edit_text"));
+        text.setText("UI Automator");
+
+        UiObject rename = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs:id/positive_button"));
+        rename.click();
 
     }
 
     @Test
-    public void testDeleteMessage() throws UiObjectNotFoundException {
+    public void testCreateGoogleSheet() throws UiObjectNotFoundException {
 
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
 
@@ -121,24 +183,29 @@ public class TestMessenger {
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        // appViews.scrollIntoView(new UiSelector().text("Messenger")); // API 25
-        appViews.scrollIntoView(new UiSelector().text("Messages"));     // API 28
+        appViews.scrollIntoView(new UiSelector().text("Drive"));
 
-        // UiObject testingApp = mDevice.findObject(new UiSelector().text("Messenger")); // API 25
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Messages"));     // API 28
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Drive"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject button = mDevice.findObject(new UiSelector().text("Gonzalo Aguilar Hermoso"));
+        UiScrollable app = new UiScrollable(new UiSelector().scrollable(true));
+        app.scrollIntoView(new UiSelector().text("Trabajo Fin de Grado"));
+
+        UiObject testing = mDevice.findObject(new UiSelector().text("Trabajo Fin de Grado"));
+        testing.clickAndWaitForNewWindow();
+
+        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs:id/branded_fab"));
         button.click();
 
-        UiObject options = mDevice.findObject(new UiSelector().description("More options"));
-        options.click();
+        UiObject sheet = mDevice.findObject(new UiSelector().description("Google Sheets"));
+        sheet.click();
 
-        UiObject delete = mDevice.findObject(new UiSelector().text("Delete"));
-        delete.click();
+        UiObject save = mDevice.findObject(new UiSelector().description("Done"));
+        save.click();
 
-        UiObject send = mDevice.findObject(new UiSelector().resourceId("android:id/button1"));
-        send.clickAndWaitForNewWindow();
+        UiObject close = mDevice.findObject(new UiSelector().description("Navigate up"));
+        close.click();
     }
+
 
 }

@@ -21,10 +21,10 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 @SdkSuppress(minSdkVersion = 18)
-public class TestGoogleDrive {
+public class TestGoogleDocs {
 
     private static final int LAUNCH_TIMEOUT = 5000;
-    private static final String BASIC_SAMPLE_PACKAGE = "Drive";
+    private static final String BASIC_SAMPLE_PACKAGE = "Docs";
     private UiDevice mDevice;
 
     @Before
@@ -50,60 +50,6 @@ public class TestGoogleDrive {
     }
 
     @Test
-    public void testCreateFolder() throws UiObjectNotFoundException {
-
-        UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
-
-        UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
-        allAppsButton.click();
-
-        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        appViews.scrollIntoView(new UiSelector().text("Drive"));
-
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Drive"));
-        testingApp.clickAndWaitForNewWindow();
-
-        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs:id/branded_fab"));
-        button.click();
-
-        UiObject folder = mDevice.findObject(new UiSelector().description("Folder"));
-        folder.click();
-
-        UiObject text = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs:id/edit_text"));
-        text.setText("Trabajo Fin de Grado");
-
-        UiObject create = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs:id/positive_button"));
-        create.click();
-    }
-
-    @Test
-    public void testDeleteFolder() throws UiObjectNotFoundException {
-
-        UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
-
-        UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
-        allAppsButton.click();
-
-        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        appViews.scrollIntoView(new UiSelector().text("Drive"));
-
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Drive"));
-        testingApp.clickAndWaitForNewWindow();
-
-        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs:id/branded_fab"));
-        button.click();
-
-        UiObject folder = mDevice.findObject(new UiSelector().description("Folder"));
-        folder.click();
-
-        UiObject text = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs:id/edit_text"));
-        text.setText("Trabajo Fin de Grado");
-
-        UiObject create = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs:id/positive_button"));
-        create.click();
-    }
-
-    @Test
     public void testCreateGoogleDoc() throws UiObjectNotFoundException {
 
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
@@ -112,39 +58,27 @@ public class TestGoogleDrive {
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        appViews.scrollIntoView(new UiSelector().text("Drive"));
+        appViews.scrollIntoView(new UiSelector().text("Docs"));
 
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Drive"));
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Docs"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiScrollable app = new UiScrollable(new UiSelector().scrollable(true));
-        app.scrollIntoView(new UiSelector().text("Trabajo Fin de Grado"));
-
-        UiObject testing = mDevice.findObject(new UiSelector().text("Trabajo Fin de Grado"));
-        testing.clickAndWaitForNewWindow();
-
-        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs:id/branded_fab"));
+        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs.editors.docs:id/fab_base_button"));
         button.click();
 
-        UiObject document = mDevice.findObject(new UiSelector().description("Google Docs"));
+        UiObject document = mDevice.findObject(new UiSelector().description("New document"));
         document.clickAndWaitForNewWindow();
 
         UiObject check = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs.editors.docs:id/action_mode_close_button"));
         check.click();
 
-        UiObject edit = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs.editors.docs:id/start_editing_button"));
-        edit.click();
-
-        UiObject text = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs.editors.docs:id/main_container"));
-        text.click();
-
-        UiObject text2 = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs.editors.docs:id/viewport_view"));
-        text2.setText("UI Automator");
+        UiObject close = mDevice.findObject(new UiSelector().description("Navigate up"));
+        close.click();
 
     }
 
     @Test
-    public void testCreateGoogleSheet() throws UiObjectNotFoundException {
+    public void testRenameGoogleDoc() throws UiObjectNotFoundException {
 
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
 
@@ -152,23 +86,50 @@ public class TestGoogleDrive {
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
-        appViews.scrollIntoView(new UiSelector().text("Drive"));
+        appViews.scrollIntoView(new UiSelector().text("Docs"));
 
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Drive"));
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Docs"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs:id/branded_fab"));
-        button.click();
-
-        UiObject document = mDevice.findObject(new UiSelector().description("Google Sheet"));
+        UiObject document = mDevice.findObject(new UiSelector().description("More actions for Untitled document"));
         document.click();
 
-        UiObject text = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs:id/edit_text"));
-        text.setText("UI Automator");
+        UiScrollable options = new UiScrollable(new UiSelector().scrollable(false));
+        options.scrollToEnd(10);
 
-        UiObject create = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs:id/positive_button"));
-        create.click();
+        UiObject rename = mDevice.findObject(new UiSelector().text("Rename"));
+        rename.clickAndWaitForNewWindow();
+
+        UiObject name = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs.editors.docs:id/edit_text"));
+        name.setText("UI Automator");
+
+        UiObject button = mDevice.findObject(new UiSelector().resourceId("com.google.android.apps.docs.editors.docs:id/positive_button"));
+        button.clickAndWaitForNewWindow();
+
     }
 
+    @Test
+    public void testRemoveGoogleDoc() throws UiObjectNotFoundException {
 
+        UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
+
+        UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
+        allAppsButton.click();
+
+        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
+        appViews.scrollIntoView(new UiSelector().text("Docs"));
+
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Docs"));
+        testingApp.clickAndWaitForNewWindow();
+
+        UiObject document = mDevice.findObject(new UiSelector().description("More actions for Untitled document"));
+        document.click();
+
+        UiScrollable options = new UiScrollable(new UiSelector().scrollable(false));
+        options.scrollToEnd(10);
+
+        UiObject remove = mDevice.findObject(new UiSelector().text("Remove"));
+        remove.clickAndWaitForNewWindow();
+
+    }
 }

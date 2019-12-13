@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TestingAndroid.iml" filepath="$PROJECT_DIR$/TestingAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/TestingAndroid-app.iml" filepath="$PROJECT_DIR$/app/TestingAndroid-app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/adrcanfer-apps-master-TestingAndroid.iml" filepath="$PROJECT_DIR$/adrcanfer-apps-master-TestingAndroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TestsUIAutomator-TestingAndroid.iml" filepath="$PROJECT_DIR$/TestsUIAutomator-TestingAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

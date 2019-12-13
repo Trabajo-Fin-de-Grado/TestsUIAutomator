@@ -17,18 +17,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 @SdkSuppress(minSdkVersion = 18)
-public class TestGmail {
+public class TestGoogleCalendar {
 
     private static final int LAUNCH_TIMEOUT = 5000;
-    private static final String BASIC_SAMPLE_PACKAGE = "Gmail";
+    private static final String BASIC_SAMPLE_PACKAGE = "Calendar";
     private UiDevice mDevice;
 
     @Before
@@ -58,11 +56,11 @@ public class TestGmail {
         // Context of the app under test.
         Context appContext = getInstrumentation().getTargetContext();
 
-        assertEquals("com.example.gmail", appContext.getPackageName());
+        assertEquals("com.example.calendar", appContext.getPackageName());
     }
 
     @Test
-    public void testSendEmail() throws UiObjectNotFoundException {
+    public void testCreateEvent() throws UiObjectNotFoundException {
 
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
 
@@ -70,70 +68,134 @@ public class TestGmail {
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(true));
-        appViews.scrollIntoView(new UiSelector().text("Gmail"));
+        appViews.scrollIntoView(new UiSelector().text("Calendar"));
 
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Gmail"));
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Calendar"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject email = mDevice.findObject(new UiSelector().description("Compose"));
-        email.clickAndWaitForNewWindow();
+        UiObject button = mDevice.findObject(new UiSelector().description("Create new event and more"));
+        button.click();
+        button.click();
 
-        UiObject user = mDevice.findObject(new UiSelector().resourceId("com.google.android.gm:id/to"));
-        user.setText("zalo.agui3@gmail.com");
+        UiObject title = mDevice.findObject(new UiSelector().text("Add title"));
+        title.setText("UI Automator");
 
-        UiObject subject = mDevice.findObject(new UiSelector().text("Subject"));
-        subject.setText("UI Automator");
+        UiObject startDate = mDevice.findObject(new UiSelector().descriptionStartsWith("Start date:"));
+        startDate.clickAndWaitForNewWindow();
 
-        UiObject body = mDevice.findObject(new UiSelector().text("Compose email"));
-        body.setText("Test probando aplicación de Gmail");
+        UiObject done = mDevice.findObject(new UiSelector().text("OK"));
+        UiObject cancel = mDevice.findObject(new UiSelector().text("Cancel"));
 
-        UiObject button = mDevice.findObject(new UiSelector().description("Send"));
-        button.clickAndWaitForNewWindow();
+        UiObject date1 = mDevice.findObject(new UiSelector().text("10"));
+        date1.click();
+        done.click();
 
-        mDevice.pressHome();
+        UiObject endDate = mDevice.findObject(new UiSelector().descriptionStartsWith("End date:"));
+        endDate.clickAndWaitForNewWindow();
+
+        UiObject date2 = mDevice.findObject(new UiSelector().text("10"));
+        date2.click();
+        done.click();
+
+        UiObject startTime = mDevice.findObject(new UiSelector().descriptionStartsWith("Start time:"));
+        startTime.clickAndWaitForNewWindow();
+
+        UiObject time1 = mDevice.findObject(new UiSelector().description("12"));
+        UiObject time2 = mDevice.findObject(new UiSelector().description("15"));
+        time1.click();
+        time2.click();
+        done.click();
+
+        UiObject endTime = mDevice.findObject(new UiSelector().descriptionStartsWith("End time:"));
+        endTime.clickAndWaitForNewWindow();
+
+        UiObject time3 = mDevice.findObject(new UiSelector().description("12"));
+        UiObject time4 = mDevice.findObject(new UiSelector().description("45"));
+        time3.click();
+        time4.click();
+        done.click();
+
+        UiScrollable scroll = new UiScrollable(new UiSelector().scrollable(true));
+        scroll.scrollToEnd(10);
+
+        UiObject color = mDevice.findObject(new UiSelector().text("Default color"));
+        color.click();
+
+        UiObject select = mDevice.findObject(new UiSelector().text("Blueberry"));
+        select.click();
+
+        UiObject description = mDevice.findObject(new UiSelector().text("Add description"));
+        description.setText("UI Automator test");
+
+        UiObject sheet = mDevice.findObject(new UiSelector().description("Collapse event sheet"));
+        sheet.click();
+
+        UiObject save = mDevice.findObject(new UiSelector().text("Save"));
+        save.click();
     }
 
     @Test
-    public void testEditDraft() throws UiObjectNotFoundException {
+    public void testEditEvent() throws UiObjectNotFoundException {
 
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
 
         UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
         allAppsButton.click();
 
-        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(true));
-        appViews.scrollIntoView(new UiSelector().text("Gmail"));
+        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(false));
+        appViews.scrollIntoView(new UiSelector().text("Calendar"));
 
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Gmail"));
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Calendar"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject options = mDevice.findObject(new UiSelector().description("Open navigation drawer"));
-        options.clickAndWaitForNewWindow();
+        UiObject calendar = mDevice.findObject(new UiSelector().resourceId("com.google.android.calendar:id/date_picker_text_view"));
+        calendar.click();
 
-        UiObject drafts = mDevice.findObject(new UiSelector().text("Drafts"));
-        drafts.clickAndWaitForNewWindow();
+        UiObject day = mDevice.findObject(new UiSelector().className("android.view.View").index(9));
+        day.click();
 
-        UiObject email = mDevice.findObject(new UiSelector().descriptionStartsWith(" me, UI Automator, Test probando aplicación de Gmail"));
-        email.clickAndWaitForNewWindow();
+        UiObject event = mDevice.findObject(new UiSelector().descriptionStartsWith("UI Automator"));
+        event.click();
+        event.click();
 
         UiObject edit = mDevice.findObject(new UiSelector().description("Edit"));
-        edit.clickAndWaitForNewWindow();
+        edit.click();
 
-        UiObject text = mDevice.findObject(new UiSelector().description("Attach file"));
-        text.clickAndWaitForNewWindow();
+        UiScrollable scroll = new UiScrollable(new UiSelector().scrollable(true));
+        scroll.scrollToEnd(10);
 
-        UiObject attachment = mDevice.findObject(new UiSelector().text("Attach file"));
-        attachment.clickAndWaitForNewWindow();
+        UiObject notification = mDevice.findObject(new UiSelector().description("Remove notification"));
+        notification.click();
 
-        UiObject file = mDevice.findObject(new UiSelector().text("Untitled document.docx"));
-        file.clickAndWaitForNewWindow();
+        UiObject location = mDevice.findObject(new UiSelector().text("Add location"));
+        location.click();
+        location.setText("Avenida Reina Mercedes");
 
-        UiObject save = mDevice.findObject(new UiSelector().description("Navigate up"));
-        save.clickAndWaitForNewWindow();
+        UiObject select = mDevice.findObject(new UiSelector().text("Avenida Reina Mercedes, Seville"));
+        select.click();
+
+        scroll.scrollToEnd(10);
+
+        UiObject attachment = mDevice.findObject(new UiSelector().text("Add attachment"));
+        attachment.click();
+
+        scroll.scrollToEnd(10);
+
+        UiObject file = mDevice.findObject(new UiSelector().text("UI Automator"));
+        file.click();
+
+        UiObject button = mDevice.findObject(new UiSelector().text("SELECT"));
+        button.click();
+
+        UiObject sheet = mDevice.findObject(new UiSelector().description("Collapse event sheet"));
+        sheet.click();
+
+        UiObject save = mDevice.findObject(new UiSelector().text("Save"));
+        save.click();
     }
 
     @Test
-    public void testDeleteEmail() throws UiObjectNotFoundException {
+    public void testDeleteEvent() throws UiObjectNotFoundException {
 
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
 
@@ -141,52 +203,29 @@ public class TestGmail {
         allAppsButton.click();
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(true));
-        appViews.scrollIntoView(new UiSelector().text("Gmail"));
+        appViews.scrollIntoView(new UiSelector().text("Calendar"));
 
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Gmail"));
+        UiObject testingApp = mDevice.findObject(new UiSelector().text("Calendar"));
         testingApp.clickAndWaitForNewWindow();
 
-        UiObject options = mDevice.findObject(new UiSelector().description("Open navigation drawer"));
-        options.clickAndWaitForNewWindow();
+        UiObject calendar = mDevice.findObject(new UiSelector().resourceId("com.google.android.calendar:id/date_picker_text_view"));
+        calendar.click();
 
-        UiObject sent = mDevice.findObject(new UiSelector().text("Sent"));
-        sent.clickAndWaitForNewWindow();
+        UiObject day = mDevice.findObject(new UiSelector().className("android.view.View").index(9));
+        day.click();
 
-        UiObject body = mDevice.findObject(new UiSelector().description("Double tap to select this conversation"));
-        body.longClick();
+        UiObject event = mDevice.findObject(new UiSelector().descriptionStartsWith("UI Automator"));
+        event.click();
+        event.click();
 
-        UiObject delete = mDevice.findObject(new UiSelector().description("Delete"));
-        delete.clickAndWaitForNewWindow();
-    }
+        UiObject options = mDevice.findObject(new UiSelector().description("More options"));
+        options.click();
 
-    @Test
-    public void testEmptyTrash() throws UiObjectNotFoundException {
+        UiObject delete = mDevice.findObject(new UiSelector().text("Delete"));
+        delete.click();
 
-        UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
-
-        UiObject allAppsButton = mDevice.findObject(new UiSelector().description("Apps list"));
-        allAppsButton.click();
-
-        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(true));
-        appViews.scrollIntoView(new UiSelector().text("Gmail"));
-
-        UiObject testingApp = mDevice.findObject(new UiSelector().text("Gmail"));
-        testingApp.clickAndWaitForNewWindow();
-
-        UiObject options = mDevice.findObject(new UiSelector().description("Open navigation drawer"));
-        options.clickAndWaitForNewWindow();
-
-        UiScrollable scroll = new UiScrollable(new UiSelector().scrollable(false));
-        scroll.scrollIntoView(new UiSelector().text("Trash"));
-
-        UiObject sent = mDevice.findObject(new UiSelector().text("Trash"));
-        sent.clickAndWaitForNewWindow();
-
-        UiObject trash = mDevice.findObject(new UiSelector().text("EMPTY TRASH NOW"));
-        trash.clickAndWaitForNewWindow();
-
-        UiObject confirm = mDevice.findObject(new UiSelector().text("EMPTY"));
-        confirm.clickAndWaitForNewWindow();
+        UiObject confirm = mDevice.findObject(new UiSelector().text("Delete"));
+        confirm.click();
     }
 
 }
